@@ -12,7 +12,6 @@ env:
   THEME_BRANCH: master
   DEPLOY_REPO: lhl946/lhl946.github.io
   DEPLOY_BRANCH: master
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   build:
@@ -63,5 +62,7 @@ jobs:
           npm install
 
       - name: Deploy hexo
+        env:
+          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
         run: |
           npm run deploy
