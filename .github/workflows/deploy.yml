@@ -53,7 +53,6 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{secrets.HEXO_DEPLOY_PRI}}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          cls -l ~/.ssh/id_rsa
           wc ~/.ssh/id_rsa
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
