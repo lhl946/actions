@@ -10,7 +10,7 @@ env:
   GIT_EMAIL: 1429403106@qq.com
   THEME_REPO: sanonz/hexo-theme-concise
   THEME_BRANCH: master
-  DEPLOY_REPO: git@github.com:lhl946/lhl946.github.io.git
+  DEPLOY_REPO: lhl946/lhl946.github.io
   DEPLOY_BRANCH: master
 
 jobs:
