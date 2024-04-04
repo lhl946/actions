@@ -62,8 +62,14 @@ jobs:
         run: |
           npm install
 
-      - name: Deploy hexo
-        env:
-          HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
-        run: |
-          npm run deploy
+      # - name: Deploy hexo
+      #   env:
+      #     HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
+      #   run: |
+      #     npm run deploy
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
