@@ -1,20 +1,22 @@
 name: CI
 
+# 定义触发时机，它在 master 分支上的每次 push 操作触发
 on:
   push:
     branches:
       - master
 
+# 当前actions的环境变量
 env:
   GIT_USER: lhl946
   GIT_EMAIL: 1429403106@qq.com
-  THEME_REPO: sanonz/hexo-theme-concise
   THEME_BRANCH: master
   DEPLOY_REPO: lhl946/lhl946.github.io
   DEPLOY_BRANCH: master
 
 jobs:
   build:
+    # 在 ubuntu-latest 上运行，使用 node 版本：16.x
     name: Build on node ${{ matrix.node_version }} and ${{ matrix.os }}
     runs-on: ubuntu-latest
     strategy:
@@ -23,16 +25,11 @@ jobs:
         node_version: [16.x]
 
     steps:
+      # github提供的官方库，作用是将仓库的代码下载到运行工作流的机器上
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Checkout theme repo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: ${{ env.THEME_REPO }}
-      #     ref: ${{ env.THEME_BRANCH }}
-      #     path: themes/concise
-
+      # 运行actions/checkout并提供参数，最后把代码放到.deploy_git文件夹
       - name: Checkout deploy repo
         uses: actions/checkout@v4
         with:
@@ -40,11 +37,13 @@ jobs:
           ref: ${{ env.DEPLOY_BRANCH }}
           path: .deploy_git
 
+      # 使用指定的 Node.js 版本。
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node_version }}
 
+      # 配置环境
       - name: Configuration environment
         env:
           HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
@@ -57,11 +56,13 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
-      # cp _config.theme.yml themes/concise/_config.yml
+
+      # 安装依赖
       - name: Install dependencies
         run: |
           npm install
 
+      # 运行hexo
       - name: Deploy hexo
         run: |
           npm run deploy
