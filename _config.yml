@@ -99,5 +99,5 @@ theme: diaspora
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/lhl946/lhl946.github.io
+  repo: git@github.com:lhl946/lhl946.github.io.git
   branch: master
